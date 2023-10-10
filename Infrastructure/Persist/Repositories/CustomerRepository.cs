@@ -9,9 +9,9 @@ namespace Infrastructure.Persist.Repositories
 {
     public class CustomerRepository : BaseRepository<Customer, int>, ICustomerRepository
     {
-        protected readonly Context _context;
+        protected readonly CustomerDataContext _context;
 
-        public CustomerRepository(Context context) : base(context)
+        public CustomerRepository(CustomerDataContext context) : base(context)
         {
             _context = context;
         }

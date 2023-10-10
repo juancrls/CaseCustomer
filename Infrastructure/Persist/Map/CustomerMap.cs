@@ -10,12 +10,12 @@ namespace Infrastructure.Persist.Map
         {
             builder.ToTable("Customer");
 
-            builder.Property(p => p.Id).HasColumnName("CustomerId").IsRequired();
-            builder.Property(p => p.Cpf.Number).IsRequired();
-            builder.Property(p => p.Name).HasMaxLength(50).IsRequired();
-            builder.Property(p => p.Address).HasMaxLength(50).IsRequired();
-            builder.Property(p => p.BirthDate).IsRequired();
-            builder.Property(p => p.Active).IsRequired();
+            builder.Property(c => c.Id).HasColumnName("Id").IsRequired();
+            builder.Property(c => c.Cpf).IsRequired();
+            builder.Property(c => c.Name).HasMaxLength(50).IsRequired();
+            builder.Property(c => c.Address).HasMaxLength(50).IsRequired();
+            builder.Property(c => c.BirthDate).IsRequired();
+            builder.Property(c => c.Active).IsRequired();
             // verificar se as datas de criacao/modificacao vao aparecer na classe gerada Migration
         }
     }
