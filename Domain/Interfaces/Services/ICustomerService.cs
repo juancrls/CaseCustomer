@@ -2,7 +2,7 @@
 
 namespace Domain.Interfaces.Services
 {
-    public interface CustomerService : IService
+    public interface ICustomerService : IService
     {
         CustomerResponse Add(CustomerRequest request);
         CustomerResponse Update(CustomerRequest request);
