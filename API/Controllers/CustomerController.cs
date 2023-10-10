@@ -4,7 +4,8 @@ using Domain.Interfaces.Services;
 
 namespace API.Controllers
 {
-    [Route("api/customers")]
+    [ApiController]
+    [Route("[controller]")]
     public class CustomerController : BaseController
     {
         private readonly ICustomerService _customerService;
@@ -14,19 +15,28 @@ namespace API.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet]
-        public IActionResult ListCustomers()
+        [HttpGet(Name = "GetCustomers")]
+        public IEnumerable<WeatherForecast> Get()
         {
-            try
+            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
-                var customers = _customerService.List();
-                return Response(customers);
-            }
-            catch (Exception ex)
-            {
-                return ResponseException(ex);
-            }
+                Date = DateTime.Now.AddDays(index),
+                TemperatureC = Random.Shared.Next(-20, 55),
+            })
+            .ToArray();
         }
+        //public IActionResult ListCustomers()
+        //{
+        //    try
+        //    {
+        //        var customers = _customerService.List();
+        //        return Response(customers);
+        //    }
+        //    catch (Exception ex)
+        //    {
+        //        return ResponseException(ex);
+        //    }
+        //}
 
         [HttpGet("{id}")]
         public IActionResult SelectCustomer(int id)
