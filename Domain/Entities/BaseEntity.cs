@@ -1,8 +1,8 @@
 ﻿namespace Domain.Entities
 {
-    public class Entity
+    public class BaseEntity
     {
-        public Entity()
+        public BaseEntity()
         {
             Status = true;
         }

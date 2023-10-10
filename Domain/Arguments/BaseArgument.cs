@@ -1,6 +1,6 @@
 ﻿namespace Domain.Arguments
 {
-    public class Argument
+    public class BaseArgument
     {
         public int Id { get; set; }
         public bool? Status { get; set; }

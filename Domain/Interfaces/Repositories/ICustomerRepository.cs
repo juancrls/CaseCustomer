@@ -1,6 +1,10 @@
-﻿namespace Domain.Interfaces.Repositories
+﻿using Domain.Entities;
+using Domain.Entities.Components;
+
+namespace Domain.Interfaces.Repositories
 {
-    public interface ICustomerRepository
+    public interface ICustomerRepository : IBaseRepository<Customer, int>
     {
+        Task<bool> ExistsWithSameCpf(Cpf cpf);
     }
 }

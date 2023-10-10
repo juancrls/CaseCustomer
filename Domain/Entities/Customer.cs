@@ -2,7 +2,7 @@
 
 namespace Domain.Entities
 {
-    public class Customer : Entity
+    public class Customer : BaseEntity
     {
         protected Customer() { }
 
