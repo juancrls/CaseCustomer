@@ -1,7 +1,4 @@
-﻿using System.Linq;
-using System.Threading.Tasks;
-using Domain.Arguments.Customer;
-using Domain.Entities;
+﻿using Domain.Entities;
 using Domain.Entities.Components;
 using Domain.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
@@ -24,8 +21,6 @@ namespace Infrastructure.Persist.Repositories
 
             return exists;
         }
-
-
 
         public Customer? FindById(int id)
         {

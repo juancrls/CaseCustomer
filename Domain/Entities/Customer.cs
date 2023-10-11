@@ -31,7 +31,7 @@ namespace Domain.Entities
             Active = active;
             BirthDate = birthDate;
 
-            SetModificationDate(DateOnly.FromDateTime(DateTime.Now)); // ver se isso é inutil por conta do Update no CustomerRepository ou se é util e precisa entrar no Add do repository tbm
+            SetModificationDate(DateOnly.FromDateTime(DateTime.Now));
         }
     }
 }

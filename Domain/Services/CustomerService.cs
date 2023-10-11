@@ -103,7 +103,7 @@ namespace Domain.Services
         {
             if (id == 0)
             {
-                throw new InvalidOperationException("Customer not found."); // TROCAR POR MENSAGEM
+                throw new InvalidOperationException("Customer not found.");
             }
 
             return _mapper.Map<CustomerResponse>(_customerRepository.FindById(id));

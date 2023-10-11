@@ -12,7 +12,6 @@ namespace Infrastructure.Persist
         public CustomerDataContext(DbContextOptions<CustomerDataContext> options) : base(options)
         {
         }
-        // verificar como utilizar dados de um json (para n expor no repositório do github) ou entao como fazer funcionar pelo startup.cs
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
             => optionsBuilder.UseNpgsql("Host=localhost;Port=5432;Database=db;User Id=postgres;Password=1234;");
 

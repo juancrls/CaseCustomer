@@ -7,9 +7,6 @@ namespace Domain.Interfaces.Repositories
     {
         Task<bool> ExistsWithSameCpf(Cpf cpf, int id);
 
-        // testar remover todos esse métodos pra ver se ainda vai funcionar com
-        // os métodos do IBaseRepository
-
         Customer? FindById(int id);
         IEnumerable<Customer> FindAll();
         void Add(Customer customer);

@@ -56,7 +56,6 @@ namespace API.Controllers
             {
                 var customer = _customerService.Add(model);
                 return Response(customer);
-
             }
             catch (Exception ex)
             {
