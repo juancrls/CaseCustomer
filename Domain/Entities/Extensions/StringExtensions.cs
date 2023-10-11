@@ -108,9 +108,6 @@ public static class StringExtensions
         return calculado == digitado;
     }
 
-    public static bool IsDate(this string s) => DateTime.TryParseExact(s, new[] { "dd/MM/yyyy", "MM/dd/yyyy", "dd/MM/yyyy HH:mm:ss", "MM/dd/yyyy HH:mm:ss" },
-        CultureInfo.InvariantCulture, DateTimeStyles.None, out _);
-
     public static string OnlyNumbers(this string s) => new(s.Where(char.IsDigit).ToArray());
 
     public static string Format(this string source, FormatType formatType)

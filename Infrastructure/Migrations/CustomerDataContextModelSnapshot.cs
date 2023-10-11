@@ -39,17 +39,17 @@ namespace Infrastructure.Migrations
                         .HasMaxLength(50)
                         .HasColumnType("character varying(50)");
 
-                    b.Property<DateTime>("BirthDate")
+                    b.Property<DateOnly>("BirthDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Cpf")
                         .IsRequired()
                         .HasColumnType("text");
 
-                    b.Property<DateTime>("CreationDate")
+                    b.Property<DateOnly>("CreationDate")
                         .HasColumnType("date");
 
-                    b.Property<DateTime?>("ModificationDate")
+                    b.Property<DateOnly?>("ModificationDate")
                         .HasColumnType("date");
 
                     b.Property<string>("Name")
