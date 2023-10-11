@@ -6,7 +6,7 @@ namespace Domain.Entities
     {
         protected Customer() { }
 
-        public Customer(Cpf cpf, string name, string address, bool active, DateTime birthDate) : this()
+        public Customer(Cpf cpf, string name, string address, bool active, DateOnly birthDate) : this()
         { 
             if (string.IsNullOrWhiteSpace(name)) 
                 throw new ArgumentNullException(nameof(name));
@@ -21,9 +21,9 @@ namespace Domain.Entities
         public string Name { get; protected set; } = default!;
         public string Address { get; protected set; } = default!;
         public bool Active { get; protected set; }
-        public DateTime BirthDate { get; protected set; }
+        public DateOnly BirthDate { get; protected set; }
 
-        public virtual void Update(Cpf cpf, string name, string address, bool active, DateTime birthDate)
+        public virtual void Update(Cpf cpf, string name, string address, bool active, DateOnly birthDate)
         {
             Cpf = cpf;
             Name = name;
@@ -31,7 +31,7 @@ namespace Domain.Entities
             Active = active;
             BirthDate = birthDate;
 
-            SetModificationDate(DateTime.Now);
+            SetModificationDate(DateOnly.FromDateTime(DateTime.Now)); // ver se isso é inutil por conta do Update no CustomerRepository ou se é util e precisa entrar no Add do repository tbm
         }
     }
 }

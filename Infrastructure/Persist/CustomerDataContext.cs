@@ -39,8 +39,8 @@ namespace Infrastructure.Persist
         {
             foreach (var entry in ChangeTracker.Entries())
             {
-                if (entry.State == EntityState.Added) entry.Property("CreationDate").CurrentValue = DateTime.Now;
-                if (entry.State == EntityState.Modified) entry.Property("ModificationDate").CurrentValue = DateTime.Now;
+                if (entry.State == EntityState.Added) entry.Property("CreationDate").CurrentValue = DateOnly.FromDateTime(DateTime.Now);
+                if (entry.State == EntityState.Modified) entry.Property("ModificationDate").CurrentValue = DateOnly.FromDateTime(DateTime.Now);
             }
         }
     }

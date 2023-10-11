@@ -16,7 +16,6 @@ namespace Infrastructure.Persist.Map
             builder.Property(c => c.Address).HasMaxLength(50).IsRequired();
             builder.Property(c => c.BirthDate).IsRequired();
             builder.Property(c => c.Active).IsRequired();
-            // verificar se as datas de criacao/modificacao vao aparecer na classe gerada Migration
         }
     }
 }

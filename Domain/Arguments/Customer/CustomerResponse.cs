@@ -9,10 +9,23 @@ namespace Domain.Arguments.Customer
         public string Name { get; set; }
         public string Address { get; set; }
         public bool Active { get; set; }
-        public DateTime BirthDate { get; set; }
+        public DateOnly BirthDate { get; set; }
         public string Message { get; set; }
 
-        public CustomerResponse(Cpf cpf, string name, string address, bool active, DateTime birthDate)
+        public CustomerResponse(Domain.Entities.Customer customer)
+        {
+            Id = customer.Id;
+            Cpf = customer.Cpf;
+            Name = customer.Name ?? throw new ArgumentNullException(nameof(Name));
+            Address = customer.Address ?? throw new ArgumentNullException(nameof(Address));
+            Active = customer.Active;
+            BirthDate = customer.BirthDate;
+            CreationDate = customer.CreationDate;
+            ModificationDate = customer.ModificationDate;
+            Message = string.Empty;
+        }
+
+        public CustomerResponse(Cpf cpf, string name, string address, bool active, DateOnly birthDate)
         {
             Cpf = cpf;
             Name = name ?? throw new ArgumentNullException(nameof(name));

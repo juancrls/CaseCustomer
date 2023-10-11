@@ -15,13 +15,13 @@ namespace Domain.Services
 
         public CustomerService(ICustomerRepository customerRepository, IMapper mapper)
         {
-            _customerRepository = customerRepository ?? throw new ArgumentNullException(nameof(customerRepository));
+            _customerRepository = customerRepository;
             _mapper = mapper;
         }
 
         public CustomerResponse Add(CustomerRequest request)
         {
-            // ADICIONAR VALIDACOES PARA UTILIZAR MENSAGENS (TALVEZ USAR AS MSGS DO RESOURCES)
+            // ADICIONAR VALIDACOES NO CPF, NAME E ADDRESS PARA UTILIZAR MENSAGENS (TALVEZ USAR AS MSGS DO RESOURCES)
             var customer = new Customer
             (
                 request.Cpf,
@@ -49,21 +49,35 @@ namespace Domain.Services
 
             _customerRepository.Update(existingCustomer);
 
-            return new CustomerResponse(existingCustomer.Cpf, existingCustomer.Name, existingCustomer.Address, existingCustomer.Active, existingCustomer.BirthDate);
+            return new CustomerResponse(existingCustomer);
+        }
+
+        public CustomerResponse Delete(int id)
+        {
+            var existingCustomer = _customerRepository.FindById(id);
+
+            if (existingCustomer == null)
+            {
+                return new CustomerResponse("Customer not found.");
+            }
+
+            _customerRepository.Delete(existingCustomer);
+
+            return new CustomerResponse("Customer deleted successfully");
         }
 
         public IEnumerable<CustomerResponse> List()
         {
             var customers = _customerRepository.FindAll();
 
-            return customers.Select(customer => new CustomerResponse(customer.Cpf, customer.Name, customer.Address, customer.Active, customer.BirthDate));
+            return customers.Select(customer => new CustomerResponse(customer));
         }
 
         public CustomerResponse Select(int id)
         {
             if (id == 0)
             {
-                return new CustomerResponse("Customer not found.");
+                return new CustomerResponse("Customer not found."); // TROCAR POR MENSAGEM
             }
 
             return _mapper.Map<CustomerResponse>(_customerRepository.FindById(id));

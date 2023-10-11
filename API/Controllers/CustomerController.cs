@@ -15,30 +15,21 @@ namespace API.Controllers
             _customerService = customerService;
         }
 
-        [HttpGet(Name = "GetCustomers")]
-        public IEnumerable<WeatherForecast> Get()
+        [HttpGet("List")]
+        public IActionResult ListCustomers()
         {
-            return Enumerable.Range(1, 5).Select(index => new WeatherForecast
+            try
             {
-                Date = DateTime.Now.AddDays(index),
-                TemperatureC = Random.Shared.Next(-20, 55),
-            })
-            .ToArray();
+                var customers = _customerService.List();
+                return Response(customers);
+            }
+            catch (Exception ex)
+            {
+                return ResponseException(ex);
+            }
         }
-        //public IActionResult ListCustomers()
-        //{
-        //    try
-        //    {
-        //        var customers = _customerService.List();
-        //        return Response(customers);
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ResponseException(ex);
-        //    }
-        //}
 
-        [HttpGet("{id}")]
+        [HttpGet("Find/{id}")]
         public IActionResult SelectCustomer(int id)
         {
             try
@@ -58,13 +49,14 @@ namespace API.Controllers
             }
         }
 
-        [HttpPost]
+        [HttpPost("Create")]
         public IActionResult AddCustomer([FromBody] CustomerRequest model)
-        {
+        { // adicionar validação para que nao crie com mesmo CPF
             try
             {
                 var customer = _customerService.Add(model);
                 return Response(customer);
+
             }
             catch (Exception ex)
             {
@@ -72,7 +64,7 @@ namespace API.Controllers
             }
         }
 
-        [HttpPut("{id}")]
+        [HttpPut("Update")]
         public IActionResult UpdateCustomer([FromBody] CustomerRequest model)
         {
             try
@@ -92,24 +84,23 @@ namespace API.Controllers
             }
         }
 
-        //[HttpDelete("{id}")]
-        //public IActionResult DeleteCustomer(int id)
-        //{
-        //    try
-        //    {
-        //        var success = _customerService.DeleteCustomer(id);
+        [HttpDelete("{id}")]
+        public IActionResult DeleteCustomer(int id)
+        {
+            try
+            {
+                var response = _customerService.Delete(id);
 
-        //        if (!success)
-        //        {
-        //            return ResponseNotFound();
-        //        }
-
-        //        return Response();
-        //    }
-        //    catch (Exception ex)
-        //    {
-        //        return ResponseException(ex);
-        //    }
-        //}
+                if (response == null)
+                {
+                    return ResponseNotFound();
+                }
+                return Response();
+            }
+            catch (Exception ex)
+            {
+                return ResponseException(ex);
+            }
+        }
     }
 }

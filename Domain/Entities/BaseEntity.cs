@@ -2,27 +2,22 @@
 {
     public class BaseEntity
     {
-        public BaseEntity()
-        {
-            Status = true;
-        }
 
         public int Id { get; protected set; } = default!;
-        public bool? Status { get; protected set; }
-        public DateTime CreationDate { get; protected set; }
-        public DateTime? ModificationDate { get; protected set; }
+        public DateOnly CreationDate { get; protected set; }
+        public DateOnly? ModificationDate { get; protected set; }
 
         public virtual void SetId(int id)
         {
             Id = id;
         }
 
-        public virtual void SetCreationDate(DateTime date)
+        public virtual void SetCreationDate(DateOnly date)
         {
             CreationDate = date;
         }
 
-        public virtual void SetModificationDate(DateTime date)
+        public virtual void SetModificationDate(DateOnly date)
         {
             ModificationDate = date;
         }
