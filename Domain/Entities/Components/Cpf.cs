@@ -12,9 +12,6 @@ namespace Domain.Entities.Components
             if (string.IsNullOrWhiteSpace(number))
                 throw new ArgumentNullException(nameof(number));
 
-            if (!number.IsCpf())
-                throw new InvalidOperationException($"The CPF \"{number}\" is invalid.");
-
             Number = number.Format(FormatType.Cpf);
         }
 

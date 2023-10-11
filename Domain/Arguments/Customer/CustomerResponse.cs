@@ -10,7 +10,11 @@ namespace Domain.Arguments.Customer
         public string Address { get; set; }
         public bool Active { get; set; }
         public DateOnly BirthDate { get; set; }
-        public string Message { get; set; }
+        public string? Message { get; set; }
+
+        public CustomerResponse()
+        {
+        }
 
         public CustomerResponse(Domain.Entities.Customer customer)
         {
@@ -22,17 +26,6 @@ namespace Domain.Arguments.Customer
             BirthDate = customer.BirthDate;
             CreationDate = customer.CreationDate;
             ModificationDate = customer.ModificationDate;
-            Message = string.Empty;
-        }
-
-        public CustomerResponse(Cpf cpf, string name, string address, bool active, DateOnly birthDate)
-        {
-            Cpf = cpf;
-            Name = name ?? throw new ArgumentNullException(nameof(name));
-            Address = address ?? throw new ArgumentNullException(nameof(name));
-            Active = active;
-            BirthDate = birthDate;
-            Message = string.Empty;
         }
 
         public CustomerResponse(string message)

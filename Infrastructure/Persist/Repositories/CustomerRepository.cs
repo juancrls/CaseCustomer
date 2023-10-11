@@ -17,10 +17,15 @@ namespace Infrastructure.Persist.Repositories
             _context = context;
         }
 
-        public async Task<bool> ExistsWithSameCpf(Cpf cpf)
+        public async Task<bool> ExistsWithSameCpf(Cpf cpf, int id)
         {
-            return await _context.Customers.AnyAsync(c => c.Cpf == cpf);
+            var exists = await _context.Customers
+                .AnyAsync(customer => customer.Cpf == cpf && customer.Id != id);
+
+            return exists;
         }
+
+
 
         public Customer? FindById(int id)
         {

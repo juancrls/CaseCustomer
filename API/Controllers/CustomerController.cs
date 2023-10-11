@@ -51,7 +51,7 @@ namespace API.Controllers
 
         [HttpPost("Create")]
         public IActionResult AddCustomer([FromBody] CustomerRequest model)
-        { // adicionar validação para que nao crie com mesmo CPF
+        {
             try
             {
                 var customer = _customerService.Add(model);
@@ -95,7 +95,7 @@ namespace API.Controllers
                 {
                     return ResponseNotFound();
                 }
-                return Response();
+                return Response(response.Message!);
             }
             catch (Exception ex)
             {

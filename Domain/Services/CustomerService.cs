@@ -1,4 +1,6 @@
 ﻿using AutoMapper;
+using AutoMapper.Execution;
+using Common.Extensions;
 using Domain.Arguments.Customer;
 using Domain.Entities;
 using Domain.Interfaces.Repositories;
@@ -21,7 +23,19 @@ namespace Domain.Services
 
         public CustomerResponse Add(CustomerRequest request)
         {
-            // ADICIONAR VALIDACOES NO CPF, NAME E ADDRESS PARA UTILIZAR MENSAGENS (TALVEZ USAR AS MSGS DO RESOURCES)
+            var existsWithSameCpf = _customerRepository.ExistsWithSameCpf(request.Cpf, request.Id);
+
+            if(!request.Cpf.Number.IsCpf())
+            {
+                throw new InvalidOperationException($"The CPF '{request.Cpf.Number}' is invalid.");
+            }
+
+            if (existsWithSameCpf.Result)
+            {
+                throw new InvalidOperationException("Customer already exists.");
+            }
+
+
             var customer = new Customer
             (
                 request.Cpf,
@@ -33,7 +47,7 @@ namespace Domain.Services
 
             _customerRepository.Add(customer);
 
-            return new CustomerResponse(customer.Cpf, customer.Name, customer.Address, customer.Active, customer.BirthDate);
+            return new CustomerResponse(customer);
         }
 
         public CustomerResponse Update(CustomerRequest request)
@@ -42,7 +56,19 @@ namespace Domain.Services
 
             if (existingCustomer == null)
             {
-                return new CustomerResponse("Customer not found.");
+                throw new InvalidOperationException("Customer not found.");
+            }
+
+            if (!request.Cpf.Number.IsCpf())
+            {
+                throw new InvalidOperationException($"The CPF '{request.Cpf.Number}' is invalid.");
+            }
+
+            var existsWithSameCpf = _customerRepository.ExistsWithSameCpf(request.Cpf, request.Id);
+
+            if (existsWithSameCpf.Result)
+            {
+                throw new InvalidOperationException("Customer already exists.");
             }
 
             existingCustomer.Update(request.Cpf, request.Name, request.Address, request.Active, request.BirthDate);
@@ -58,7 +84,7 @@ namespace Domain.Services
 
             if (existingCustomer == null)
             {
-                return new CustomerResponse("Customer not found.");
+                throw new InvalidOperationException("Customer not found.");
             }
 
             _customerRepository.Delete(existingCustomer);
@@ -77,7 +103,7 @@ namespace Domain.Services
         {
             if (id == 0)
             {
-                return new CustomerResponse("Customer not found."); // TROCAR POR MENSAGEM
+                throw new InvalidOperationException("Customer not found."); // TROCAR POR MENSAGEM
             }
 
             return _mapper.Map<CustomerResponse>(_customerRepository.FindById(id));

@@ -5,7 +5,7 @@ namespace Domain.Interfaces.Repositories
 {
     public interface ICustomerRepository : IBaseRepository<Customer, int>
     {
-        Task<bool> ExistsWithSameCpf(Cpf cpf);
+        Task<bool> ExistsWithSameCpf(Cpf cpf, int id);
 
         // testar remover todos esse métodos pra ver se ainda vai funcionar com
         // os métodos do IBaseRepository
